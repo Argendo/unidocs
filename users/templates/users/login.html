@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+| Вход
+{% endblock %}
+
+{% block content %}
+<div class = "container mt-5">
+        <div class = "col-6 offset-3">
+			<form class="form-signin">
+			<div style="text-align: center; display: block;">
+			  <img class="mb-4" src="{% static 'files/folder_logo_black.png' %}" alt="" width="96">
+			</div>
+			  <h1 class="h3 mb-3 font-weight-normal">Пожалуйста, авторизуйтесь</h1>
+			  <label class="sr-only">Имя пользователя</label>
+			  <input class="form-control" placeholder="Имя пользователя" required autofocus><br>
+			  <label for="inputPassword" class="sr-only">Пароль</label>
+			  <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required><br>
+			  <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button><br>
+			  <h1>Я обязательно заработаю...</h1>
+			  <div style="text-align: center; display: block;">
+			  <img src="{% static 'files/ja-objazatelno-vyzhivu-kotenok-768x504.png' %}" height="220">
+			  </div>
+		</form>
+	</div>
+</div>
+
+
+{% endblock %}

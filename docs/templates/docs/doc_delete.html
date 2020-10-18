@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+| Удаление {{ doc.doc_number }}
+{% endblock %}
+
+{% block content %}
+	
+	<form style="margin-left: 10%;" class="mt-5" action="{{ doc.get_delete_url }}" method="post">
+		{% csrf_token %}
+		<h3>Вы уверены, что хотите удалить документ <b>{{ doc.doc_number }}</b>?</h3>
+		<a href="{{ doc.get_absolute_url }}"><button type="button" class="btn btn-primary">Отмена</button></a>&nbsp;&nbsp;&nbsp;
+		<button type="submit" name="button" class="btn btn-danger">Удалить</button>
+	</form>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+| Мои документы
+{% endblock %}
+
+{% block content %}
+	<div class="row" style="margin: 2%; margin-top: 1%;">
+	{% for doc in docs %}
+		<div class="col-sm-4" style="margin-top: 2%;">
+    		<div class="card">
+      			<div class="card-body">
+			  	<h5 class="card-title">
+			    {% for type in types %}
+			    	{{ type.title }}
+			    {% endfor %}
+				</h5>
+			    <p class="card-text">{{ doc.doc_number }}</p>
+			  	</div>
+			  	<a href="{% url 'doc_detail_url' slug=doc.slug %}" class="btn btn-primary" style="margin: 1%;">Управлять</a>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock %}

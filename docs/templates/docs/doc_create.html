@@ -18,10 +18,14 @@
 				<label>Номер документа</label>
 				{% elif field.label == "Doc type" %}
 				<label>Тип документа</label><br>
-				{% elif field.label == "Slug" %}
-				<label>Относительная ссылка на документ</label>
 				{% endif %}
+				{% if field.label == "Owner" %}
+				<select style="display: none"></select>
+				{% elif field.label == "Slug" %}
+				<select style="display: none"></select>
+				{% else %}
 				{{ field }}
+				{% endif %}
 			</div>
 		{% endfor %}
 

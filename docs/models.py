@@ -11,7 +11,7 @@ def gen_slug(s):
 
 class Document(models.Model):
 	doc_number = models.CharField(max_length=100)
-	doc_type = models.ForeignKey('DocType', related_name='docs', on_delete= models.CASCADE, null=True)
+	doc_type = models.ForeignKey('DocType', related_name='docs', on_delete= models.CASCADE, null=True, blank=True)
 	owner = models.ForeignKey(User, related_name='docs', on_delete= models.CASCADE, null=True)
 	slug = models.SlugField(max_length=150, blank=True, unique=True)
 

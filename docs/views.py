@@ -4,6 +4,7 @@ from django.views.generic import View
 from .forms import DocumentForm
 from .models import DocType, Document
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -19,9 +20,9 @@ def heck(request):
 class Docs(LoginRequiredMixin, View):
 	login_url=reverse_lazy('login_url')
 	def get(self, request):
-		docs = Document.objects.all()
+		docs = Document.objects.filter(owner=request.user)
 		types = DocType.objects.all()
-		return render(request, 'docs/docs.html', context={'docs': docs, 'types': types, 'username': auth.get_user(request).username})
+		return render(request, 'docs/docs.html', context={'docs': docs, 'types': types})
 
 class DocDetail(LoginRequiredMixin, View):
 	login_url=reverse_lazy('login_url')
@@ -30,29 +31,29 @@ class DocDetail(LoginRequiredMixin, View):
 		doc = Document.objects.get(slug__iexact=slug)
 		types = DocType.objects.all()
 		raise_exception=True
-		return render(request, 'docs/doc_detail.html', context={'doc': doc, "types": types, 'username': auth.get_user(request).username})
+		return render(request, 'docs/doc_detail.html', context={'doc': doc, "types": types})
 		
 class DocCreate(LoginRequiredMixin, View):
 	login_url=reverse_lazy('login_url')
 	redirect_field_name='next'
 	def get(self, request):
-		form = DocumentForm()
-		return render(request, 'docs/doc_create.html', context={'form': form, 'username': auth.get_user(request).username})
+		form = DocumentForm(request.user)
+		return render(request, 'docs/doc_create.html', context={'form': form})
 		
 	def post(self, request):
-		bounded_form = DocumentForm(request.POST)
+		bounded_form = DocumentForm(request.user, request.POST)
 
 		if bounded_form.is_valid():
 			new_doc = bounded_form.save()
 			return redirect(new_doc)
-		return render(request, 'docs/doc_create.html', context={'form': bounded_form, 'username': auth.get_user(request).username})
+		return render(request, 'docs/doc_create.html', context={'form': bounded_form})
 
 class DocDelete(LoginRequiredMixin, View):
 	login_url=reverse_lazy('login_url')
 	success_url=reverse_lazy('doc_detail_url')
 	def get(self, request, slug):
 		doc = Document.objects.get(slug__iexact=slug)
-		return render(request, 'docs/doc_delete.html', context={'doc': doc, 'username': auth.get_user(request).username})
+		return render(request, 'docs/doc_delete.html', context={'doc': doc})
 	def post(self, request, slug):
 		doc = Document.objects.get(slug__iexact=slug)
 		doc.delete()

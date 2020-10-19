@@ -8,17 +8,21 @@ from .forms import *
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import CreateView
 
-def redirect_docs(request):
-	return redirect('docs/', permanent=True)
-
 
 class Login(LoginView):
 	@method_decorator(csrf_exempt)
 	def dispatch(self, request, *args, **kwargs):
 		return super(Login, self).dispatch(request, *args, **kwargs)
-	success_url=reverse_lazy('docs_url')
 	template_name=('users/login.html')
+#	success_url=reverse_lazy('docs_url')
 	form_class=AuthForm
+	def get_success_url(self):
+		url = self.get_redirect_url()
+		if url:
+			return url
+		else:
+			success_url=reverse_lazy('docs_url')
+			return success_url
 	
 
 class Logout(LogoutView):

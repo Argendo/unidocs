@@ -1,14 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{% for type in types %}
 | {{ type.title }}
-{% endfor %}
 {% endblock %}
 
 {% block content %}
 	<div style="margin-left: 10%;">
-	{% for type in types %}
 	<h1 class="mt-5">
 		{{ type.title }}
 	</h1>
@@ -16,7 +13,6 @@
 	<h3>
 		{{ doc.doc_number }}
 	</h3>
-	{% endfor %}
 	<a href="{{ doc.get_delete_url  }}" class="btn btn-danger" style="margin: 1%;">Удалить</a>
 	</div>
 {% endblock %}

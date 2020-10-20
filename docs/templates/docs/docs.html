@@ -11,9 +11,7 @@
     		<div class="card">
       			<div class="card-body">
 			  	<h5 class="card-title">
-			    {% for type in types %}
-			    	{{ type.title }}
-			    {% endfor %}
+			    {{ doc.doc_type }}
 				</h5>
 			    <p class="card-text">{{ doc.doc_number }}</p>
 			  	</div>

@@ -29,9 +29,12 @@ class DocDetail(LoginRequiredMixin, View):
 	success_url=reverse_lazy('doc_detail_url')
 	def get(self, request, slug):
 		doc = Document.objects.get(slug__iexact=slug)
-		types = DocType.objects.all()
+		id = Document.objects.filter(slug=slug).values('doc_type_id')
+		for field in id:
+			id = field
+		doc_type = DocType.objects.get(id=id['doc_type_id'])
 		raise_exception=True
-		return render(request, 'docs/doc_detail.html', context={'doc': doc, "types": types})
+		return render(request, 'docs/doc_detail.html', context={'doc': doc, "type": doc_type})
 		
 class DocCreate(LoginRequiredMixin, View):
 	login_url=reverse_lazy('login_url')

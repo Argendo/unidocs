@@ -14,7 +14,6 @@ class Login(LoginView):
 	def dispatch(self, request, *args, **kwargs):
 		return super(Login, self).dispatch(request, *args, **kwargs)
 	template_name=('users/login.html')
-#	success_url=reverse_lazy('docs_url')
 	form_class=AuthForm
 	def get_success_url(self):
 		url = self.get_redirect_url()

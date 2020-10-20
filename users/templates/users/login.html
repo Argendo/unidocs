@@ -15,16 +15,13 @@
 			  		<img class="mb-4" src="{% static 'files/folder_logo_black.png' %}" width="96">
 				</a>
 			</div>
-			  <h1 class="h3 mb-3 font-weight-normal">Пожалуйста, авторизуйтесь</h1>
+			  <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Пожалуйста, авторизуйтесь</h1>
 			{% csrf_token %}
 			{% for field in form %}
             	<h5>{{ field.label }}</h5>
             	{{ field }}<br>
 			{% endfor %}
 			  <button class="btn btn-lg btn-success btn-block" type="submit">Войти</button><br>
-			  <h1>Я обязательно заработаю...</h1>
-			  <div style="text-align: center; display: block;">
-			  <img src="{% static 'files/ja-objazatelno-vyzhivu-kotenok-768x504.png' %}" height="220">
 			  </div>
 		</form>
 	</div>
